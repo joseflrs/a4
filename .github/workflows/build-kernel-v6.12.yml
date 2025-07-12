@@ -1,10 +1,10 @@
-name: Build Kernel v6.12 tarball
+name: Build Kernel tarball
 
 on:
   workflow_dispatch:
 jobs:
-  create_tar:
-    name: Generate custom kernel tarball
+  kernel0:
+    name: kernel 6.12
     runs-on: ubuntu-24.04-arm
 
     steps:
@@ -35,6 +35,43 @@ jobs:
           prerelease: false
           replacesArtifacts: true
           tag: v6.12
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifacts: |
+                    *.xz
+                    *.sha256sum
+                    
+  kernel1:
+    name: kernel 6.15
+    runs-on: ubuntu-24.04-arm
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: refs/heads/linux-6.15
+      - name: Pack kernel
+        run: |
+             wget https://github.com/joseflrs/a4/archive/linux-6.15.tar.gz
+             tar -xf linux-6.15.tar.gz
+             mv a4-linux-6.15 linux-6.15.6
+             tar -c linux-6.15.6 | xz -T0 > linux-6.15.6.tar.xz
+             sha256sum linux-6.15.6.tar.xz > linux-6.15.6.sha256sum
+             echo "T=$(make kernelversion)" >> $GITHUB_ENV
+             echo "DATE=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
+             echo "HASH=$(git log -1 --format="%H")" >> $GITHUB_ENV
+      - name: Delete tag
+        run: gh release delete v6.15 --cleanup-tag || true
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Release build artifacts
+        uses: ncipollo/release-action@v1.14.0
+        with:
+          commit: ${{ env.HASH }}
+          name: Linux ${{ env.T }} ${{ env.DATE }}
+          allowUpdates: true
+          prerelease: false
+          replacesArtifacts: true
+          tag: v6.15
           token: ${{ secrets.GITHUB_TOKEN }}
           artifacts: |
                     *.xz
