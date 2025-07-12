@@ -83,6 +83,7 @@ jobs:
     - name: repo-sync4
       run: |
         git remote add tor https://github.com/torvalds/linux.git
+        git fetch origin master
         git fetch tor master
         git reset --hard tor/master
         git push -f
