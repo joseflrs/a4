@@ -14,7 +14,8 @@ jobs:
           ref: refs/heads/linux-6.12
       - name: Pack kernel
         run: |
-             echo "V=$(make kernelversion | cut -c -4)" >> $GITHUB_ENV
+             make kernelversion | cut -c -4
+             echo "V=$()" >> $GITHUB_ENV
              wget https://github.com/joseflrs/a4/archive/linux-6.12.tar.gz
              tar -xf linux-6.12.tar.gz
              mv a4-linux-6.12 linux-${{ env.V }}
