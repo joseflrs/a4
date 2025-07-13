@@ -87,9 +87,7 @@ jobs:
     - name: repo-sync4
       run: |
         git config --global http.postBuffer 524288000
-        git checkout origin/master
-        git reset --hard
-        git push -f
+        git push -f origin/master
       env:
         github_token: ${{ secrets.PAT }}
 
