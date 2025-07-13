@@ -82,16 +82,13 @@ jobs:
     - name: Checkout kernel master
       uses: actions/checkout@v4
       with:
-          repository: joseflrs/a4
+          repository: torvalds/linux
           ref: refs/heads/master
     - name: repo-sync4
       run: |
         git config --global http.postBuffer 524288000
-        git remote add tor https://github.com/torvalds/linux.git
-        git pull origin master
-        git checkout master
-        git fetch tor master
-        git reset --hard tor/master
+        git checkout origin/master
+        git reset --hard
         git push -f
       env:
         github_token: ${{ secrets.PAT }}
