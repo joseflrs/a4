@@ -88,7 +88,7 @@ jobs:
       run: |
         git config --global http.postBuffer 524288000
         git remote add tor https://github.com/torvalds/linux.git
-        git fetch origin master
+        git pull origin master
         git checkout master
         git fetch tor master
         git reset --hard tor/master
