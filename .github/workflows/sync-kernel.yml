@@ -79,15 +79,16 @@ jobs:
   repo-sync4:
     runs-on: ubuntu-24.04-arm
     steps:
+    - uses: actions/checkout@v4
     - name: Checkout kernel master
-      uses: actions/checkout@v4
-      with:
-          repository: torvalds/linux
-          ref: refs/heads/master
-    - name: repo-sync4
       run: |
         git config --global http.postBuffer 524288000
-        git push -f origin master
+        git fetch
+        git remote add tor https://github.com/torvalds/linux.git
+        git checkout master
+        git fetch tor master
+        git reset --hard tor/master
+        git push -f
       env:
         github_token: ${{ secrets.PAT }}
 
