@@ -13,7 +13,7 @@ jobs:
         git fetch
         git remote add stable-rc https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
         git remote add stable https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-        git checkout linux6.6
+        git checkout linux-6.6
         git fetch stable-rc linux-6.6.y
         git reset --hard stable-rc/linux-6.6.y
         git push -f
