@@ -8,15 +8,11 @@ jobs:
     runs-on: ubuntu-24.04-arm
     steps:
     - name: Checkout kernel 6.6
-      uses: actions/checkout@v4
-      with:
-          repository: joseflrs/a4
-          ref: refs/heads/linux-6.6
-    - name: repo-sync
       run: |
         git config --global http.postBuffer 524288000
         git remote add stable-rc https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
         git remote add stable https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+        git checkout linux6.6
         git fetch stable-rc linux-6.6.y
         git reset --hard stable-rc/linux-6.6.y
         git push -f
@@ -26,15 +22,11 @@ jobs:
     runs-on: ubuntu-24.04-arm
     steps:
     - name: Checkout kernel 6.12
-      uses: actions/checkout@v4
-      with:
-          repository: joseflrs/a4
-          ref: refs/heads/linux-6.12
-    - name: repo-sync1
       run: |
         git config --global http.postBuffer 524288000
         git remote add stable-rc https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
         git remote add stable https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+        git checkout linux-6.12
         git fetch stable-rc linux-6.12.y
         git reset --hard stable-rc/linux-6.12.y
         git push -f
@@ -44,15 +36,11 @@ jobs:
     runs-on: ubuntu-24.04-arm
     steps:
     - name: Checkout kernel 6.15
-      uses: actions/checkout@v4
-      with:
-          repository: joseflrs/a4
-          ref: refs/heads/linux-6.15
-    - name: repo-sync2
       run: |
         git config --global http.postBuffer 524288000
         git remote add stable-rc https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
         git remote add stable https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+        git checkout linux-6.15
         git fetch stable-rc linux-6.15.y
         git reset --hard stable-rc/linux-6.15.y
         git push -f
@@ -62,14 +50,10 @@ jobs:
     runs-on: ubuntu-24.04-arm
     steps:
     - name: Checkout kernel 7.0
-      uses: actions/checkout@v4
-      with:
-          repository: joseflrs/a4
-          ref: refs/heads/linux-7.0
-    - name: repo-sync3
       run: |
         git config --global http.postBuffer 524288000
         git remote add next https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
+        git checkout linux-7.0
         git fetch next master
         git reset --hard next/master
         git push -f
