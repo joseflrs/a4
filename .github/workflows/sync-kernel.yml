@@ -7,9 +7,9 @@ jobs:
   repo-sync:
     runs-on: ubuntu-24.04-arm
     steps:
+    - uses: actions/checkout@v4
     - name: Checkout kernel 6.6
       run: |
-        git config --global http.postBuffer 524288000
         git fetch
         git remote add stable-rc https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
         git remote add stable https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
@@ -22,9 +22,9 @@ jobs:
   repo-sync1:
     runs-on: ubuntu-24.04-arm
     steps:
+    - uses: actions/checkout@v4
     - name: Checkout kernel 6.12
       run: |
-        git config --global http.postBuffer 524288000
         git fetch
         git remote add stable-rc https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
         git remote add stable https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
@@ -37,9 +37,9 @@ jobs:
   repo-sync2:
     runs-on: ubuntu-24.04-arm
     steps:
+    - uses: actions/checkout@v4
     - name: Checkout kernel 6.15
       run: |
-        git config --global http.postBuffer 524288000
         git fetch
         git remote add stable-rc https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
         git remote add stable https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
@@ -52,9 +52,9 @@ jobs:
   repo-sync3:
     runs-on: ubuntu-24.04-arm
     steps:
+    - uses: actions/checkout@v4
     - name: Checkout kernel 7.0
       run: |
-        git config --global http.postBuffer 524288000
         git fetch
         git remote add next https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
         git checkout linux-7.0
