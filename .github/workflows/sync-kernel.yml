@@ -84,7 +84,7 @@ jobs:
     runs-on: ubuntu-24.04-arm
     steps:
     - uses: actions/checkout@v4
-    - name: Checkout kernel 6.16
+    - name: Checkout kernel 6.17
       run: |
         git fetch
         git remote add stable-rc https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
