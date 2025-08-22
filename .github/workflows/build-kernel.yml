@@ -13,7 +13,6 @@ jobs:
         with:
           ref: refs/heads/linux-6.6
       - name: kernel version
-        working-directory: linux
         run: |
              echo "VERSION=$(awk '/^VERSION =/{a=$3};/^PATCHLEVEL =/{b=$3};/^SUBLEVEL =/{c=$3};END{print a"."b"."c}' Makefile)" >> $GITHUB_ENV
       - name: Pack kernel
@@ -54,7 +53,6 @@ jobs:
         with:
           ref: refs/heads/linux-6.12
       - name: kernel version
-        working-directory: linux
         run: |
              echo "VERSION=$(awk '/^VERSION =/{a=$3};/^PATCHLEVEL =/{b=$3};/^SUBLEVEL =/{c=$3};END{print a"."b"."c}' Makefile)" >> $GITHUB_ENV
       - name: Pack kernel
@@ -95,7 +93,6 @@ jobs:
         with:
           ref: refs/heads/linux-6.16
       - name: kernel version
-        working-directory: linux
         run: |
              echo "VERSION=$(awk '/^VERSION =/{a=$3};/^PATCHLEVEL =/{b=$3};/^SUBLEVEL =/{c=$3};END{print a"."b"."c}' Makefile)" >> $GITHUB_ENV
       - name: Pack kernel
@@ -127,7 +124,7 @@ jobs:
                     *.sha256sum
 
   kernel3:
-    name: kernel 6.16
+    name: kernel 6.17
     runs-on: ubuntu-24.04-arm
 
     steps:
@@ -136,7 +133,6 @@ jobs:
         with:
           ref: refs/heads/linux-6.17
       - name: kernel version
-        working-directory: linux
         run: |
              echo "VERSION=$(awk '/^VERSION =/{a=$3};/^PATCHLEVEL =/{b=$3};/^SUBLEVEL =/{c=$3};END{print a"."b"."c}' Makefile)" >> $GITHUB_ENV
       - name: Pack kernel
