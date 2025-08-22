@@ -30,7 +30,7 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release build artifacts
-        uses: ncipollo/release-action@v1.14.0
+        uses: ncipollo/release-action@v1.18.0
         with:
           commit: ${{ env.HASH }}
           name: Linux ${{ env.T }} ${{ env.DATE }}
@@ -70,7 +70,7 @@ jobs:
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release build artifacts
-        uses: ncipollo/release-action@v1.14.0
+        uses: ncipollo/release-action@v1.18.0
         with:
           commit: ${{ env.HASH }}
           name: Linux ${{ env.T }} ${{ env.DATE }}
@@ -95,6 +95,9 @@ jobs:
       - name: kernel version
         run: |
              echo "VERSION=$(awk '/^VERSION =/{a=$3};/^PATCHLEVEL =/{b=$3};/^SUBLEVEL =/{c=$3};END{print a"."b"."c}' Makefile)" >> $GITHUB_ENV
+             echo "T=$(make kernelversion)" >> $GITHUB_ENV
+             echo "DATE=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
+             echo "HASH=$(git log -1 --format="%H")" >> $GITHUB_ENV
       - name: Pack kernel
         run: |
              wget https://github.com/joseflrs/a4/archive/linux-6.16.tar.gz
@@ -102,15 +105,12 @@ jobs:
              mv a4-linux-6.16 linux-${{ env.VERSION }}
              tar -c linux-${{ env.VERSION }} | xz -T0 > linux-${{ env.VERSION }}.tar.xz
              sha256sum linux-${{ env.VERSION }}.tar.xz > linux-${{ env.VERSION }}.sha256sum
-             echo "T=$(make kernelversion)" >> $GITHUB_ENV
-             echo "DATE=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
-             echo "HASH=$(git log -1 --format="%H")" >> $GITHUB_ENV
       - name: Delete tag
         run: gh release delete v6.16 --cleanup-tag || true
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release build artifacts
-        uses: ncipollo/release-action@v1.14.0
+        uses: ncipollo/release-action@v1.18.0
         with:
           commit: ${{ env.HASH }}
           name: Linux ${{ env.T }} ${{ env.DATE }}
@@ -135,6 +135,9 @@ jobs:
       - name: kernel version
         run: |
              echo "VERSION=$(awk '/^VERSION =/{a=$3};/^PATCHLEVEL =/{b=$3};/^SUBLEVEL =/{c=$3};END{print a"."b"."c}' Makefile)" >> $GITHUB_ENV
+             echo "T=$(make kernelversion)" >> $GITHUB_ENV
+             echo "DATE=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
+             echo "HASH=$(git log -1 --format="%H")" >> $GITHUB_ENV
       - name: Pack kernel
         run: |
              wget https://github.com/joseflrs/a4/archive/linux-6.17.tar.gz
@@ -142,15 +145,12 @@ jobs:
              mv a4-linux-6.17 linux-${{ env.VERSION }}
              tar -c linux-${{ env.VERSION }} | xz -T0 > linux-${{ env.VERSION }}.tar.xz
              sha256sum linux-${{ env.VERSION }}.tar.xz > linux-${{ env.VERSION }}.sha256sum
-             echo "T=$(make kernelversion)" >> $GITHUB_ENV
-             echo "DATE=$(date +'%Y.%m.%d')" >> $GITHUB_ENV
-             echo "HASH=$(git log -1 --format="%H")" >> $GITHUB_ENV
       - name: Delete tag
         run: gh release delete v6.17 --cleanup-tag || true
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Release build artifacts
-        uses: ncipollo/release-action@v1.14.0
+        uses: ncipollo/release-action@v1.18.0
         with:
           commit: ${{ env.HASH }}
           name: Linux ${{ env.T }} ${{ env.DATE }}
