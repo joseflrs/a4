@@ -38,14 +38,14 @@ jobs:
     runs-on: ubuntu-24.04-arm
     steps:
     - uses: actions/checkout@v4
-    - name: Checkout kernel 6.15
+    - name: Checkout kernel 6.16
       run: |
         git fetch
         git remote add stable-rc https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
         git remote add stable https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-        git checkout linux-6.15
-        git fetch stable-rc linux-6.15.y
-        git reset --hard stable-rc/linux-6.15.y
+        git checkout linux-6.16
+        git fetch stable-rc linux-6.16.y
+        git reset --hard stable-rc/linux-6.16.y
         git push -f
       env:
         github_token: ${{ secrets.PAT }}
@@ -76,6 +76,22 @@ jobs:
         git checkout master
         git fetch tor master
         git reset --hard tor/master
+        git push -f
+      env:
+        github_token: ${{ secrets.PAT }}
+
+  repo-sync5:
+    runs-on: ubuntu-24.04-arm
+    steps:
+    - uses: actions/checkout@v4
+    - name: Checkout kernel 6.16
+      run: |
+        git fetch
+        git remote add stable-rc https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+        git remote add stable https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+        git checkout linux-6.17
+        git fetch stable-rc linux-6.17.y
+        git reset --hard stable-rc/linux-6.17.y
         git push -f
       env:
         github_token: ${{ secrets.PAT }}
